@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
+
+import br.com.hoteis.melhores.hotelbomdemais.util.HashUtil;
 import lombok.Data;
 
 //cria getters & setters
@@ -26,6 +28,14 @@ public class Administrador {
 		@Email
 		private String email;
 		@NotEmpty
-		@Length(max = 36)
 		private String senha;
+		
+		// metodo set que aplica o hash na senha
+		public void setSenha(String senha) {
+			this.senha = HashUtil.hash(senha);
+		}
+		
+		public void setSenhaComHash(String hash) {
+			this.senha = hash;
+		}
 }

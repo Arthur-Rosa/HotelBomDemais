@@ -27,32 +27,33 @@
 			<div class="block">
 				<h3 for="exampleInputEmail1" class="form-label">Cadastro de ADM</h3>
 				<hr>
+				<input type="hidden" name="id" th:value="${valueAdm?.id}">
 				<div class="mb-3">
 					<label for="exampleInputEmail1" class="form-label"><i
 						class="fa fa-user-circle-o" style="font-size: 24px"></i> Nome</label> <input
-						type="text" class="form-control" name="nome"
+						type="text" class="form-control" th:value="${valueAdm?.nome}" name="nome"
 						placeholder="Digite seu nome" id="exampleInputEmail1"
 						aria-describedby="emailHelp">
 				</div>
 				<div class="mb-3">
 					<label for="exampleInputEmail1" class="form-label"><i
 						class="fa fa-envelope" style="font-size: 24px"></i> E-mail</label> <input
-						type="email" class="form-control" name="email"
+						type="email" class="form-control" th:value="${valueAdm?.email}" name="email"
 						placeholder="Digite seu E-mail" id="exampleInputEmail1"
 						aria-describedby="emailHelp">
 				</div>
 				<div class="mb-3">
 					<label for="exampleInputPassword1" class="form-label"><i
 						class="fa fa-lock" style="font-size: 24px"></i> Senha</label> <input
-						type="password" class="form-control" name="senha"
+						type="password" class="form-control" name="senha" th:value="${valueAdm?.senha}"
 						placeholder="Digite sua senha" id="exampleInputPassword1">
 				</div>
 				<button type="submit" class="btn btn-primary">
-					<i class="fa fa-floppy-o" style="font-size: 24px"></i> Cadastrar
+					<i class="fa fa-floppy-o" style="font-size: 24px"></i><span style="padding: 5px;" th:text="${valueAdm?.id == null ? 'Cadastro' : 'Salvar'}"></span>
 				</button>
 
 				<div th:replace="fragments/mensagem"></div>
-
+				<a href="listaAdmin/1">Listar</a>
 			</div>
 		</div>
 	</form>

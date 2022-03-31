@@ -1,0 +1,14 @@
+@charset "ISO-8859-1";
+
+table{
+	width: 70%;
+	margin-top: 5%;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	margin-bottom: 15%;
+}
+
+th, td{
+	padding: 10px;
+	border: solid 1px #c4c4c4;
+}

@@ -9,7 +9,9 @@ html{
 	margin-top: 15%;
 }
 .bg-img{
-	background-image: url('bgAdm.svg');
+	/* background-image: url('bgAdm.svg'); */
+	
+	
   	background-repeat: no-repeat;
   	width: 714px;
   	height: 100vh;
