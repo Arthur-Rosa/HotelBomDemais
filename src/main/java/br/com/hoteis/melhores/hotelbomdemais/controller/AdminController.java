@@ -23,7 +23,7 @@ import br.com.hoteis.melhores.hotelbomdemais.repository.AdminRepository;
 import br.com.hoteis.melhores.hotelbomdemais.util.HashUtil;
 
 @Controller
-public class IndexController {
+public class AdminController {
 
 	// variavel para persistencia dos dados
 	@Autowired
@@ -52,8 +52,8 @@ public class IndexController {
 		// variavel para descobrir alteração ou inserção
 		boolean alteracao = admin.getId() != null ? true : false;
 		// verificar se a senha esta vazia
-		if(admin.getSenha().equals(HashUtil.hash(""))) {
-			if(!alteracao) {
+		if (admin.getSenha().equals(HashUtil.hash(""))) {
+			if (!alteracao) {
 				// retirada a parte antes do arroba
 				String parte = admin.getEmail().substring(0, admin.getEmail().indexOf("@"));
 				// setar a parte na senha do admin
@@ -75,7 +75,7 @@ public class IndexController {
 		}
 		return "redirect:cadastroAdmin";
 	}
-	
+
 	@RequestMapping("listaAdmin/{page}")
 	public String listaAdmin(Model model, @PathVariable("page") int page) {
 		// cria um pageable informando os parametros da pagina
@@ -87,7 +87,7 @@ public class IndexController {
 		// cria um list de inteiro para armazenar os ns das paginas
 		model.addAttribute("admins", pagina.getContent());
 		List<Integer> numPaginas = new ArrayList<Integer>();
-		
+
 		for (int i = 1; i <= totalPages; i++) {
 			numPaginas.add(i);
 		}
@@ -98,17 +98,38 @@ public class IndexController {
 		// retora para o html
 		return "administrador/lista";
 	}
-	
+
 	@RequestMapping("editarAdm")
 	public String editarAdm(Long id, Model model) {
 		Administrador adm = repAdmin.findById(id).get();
 		model.addAttribute("valueAdm", adm);
 		return "forward:cadastroAdmin";
 	}
-	
+
 	@RequestMapping("deletarAdm")
 	public String deletaAdm(Long id) {
 		repAdmin.deleteById(id);
 		return "redirect:listaAdmin/1";
 	}
+
+	@RequestMapping("buscarAdms/{page}")
+	public String listarBusca(@PathVariable("page") int page, Model model, String t) {
+		PageRequest pageable = PageRequest.of(page - 1, 6, Sort.by(Sort.Direction.ASC, "nome"));
+		Page<Administrador> pagina = repAdmin.buscarPorTudo(t, pageable);
+		int totalPages = pagina.getTotalPages();
+		List<Integer> numPaginas = new ArrayList<Integer>();
+
+		model.addAttribute("admins", pagina.getContent());
+		
+		for (int i = 1; i <= totalPages; i++) {
+			numPaginas.add(i);
+		}
+		// adiciona os valores a model
+		model.addAttribute("numPaginas", numPaginas);
+		model.addAttribute("totalPags", totalPages);
+		model.addAttribute("pagAtual", page);
+		model.addAttribute("busca", t);
+		return "administrador/lista";
+	}
+
 }

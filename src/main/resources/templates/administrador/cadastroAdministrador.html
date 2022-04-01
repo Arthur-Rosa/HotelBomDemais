@@ -19,47 +19,52 @@
 
 </head>
 <body>
-	<form method="post" action="salvarAdmin">
-		<div class="group">
-			<div class="img">
-				<div class="bg-img"></div>
-			</div>
-			<div class="block">
+
+	<div class="group">
+		<div class="img">
+			<div class="bg-img"></div>
+		</div>
+		<div class="block">
+			<button class="btn btn-secondary" style="padding: 5px;"
+				onclick="window.location.href = '../listaAdmin/1' ">
+				<i class="fa-solid fa-circle-chevron-left" style="font-size: 24px;"></i>
+			</button>
+			<form method="post" action="salvarAdmin">
 				<h3 for="exampleInputEmail1" class="form-label">Cadastro de ADM</h3>
 				<hr>
 				<input type="hidden" name="id" th:value="${valueAdm?.id}">
 				<div class="mb-3">
 					<label for="exampleInputEmail1" class="form-label"><i
 						class="fa fa-user-circle-o" style="font-size: 24px"></i> Nome</label> <input
-						type="text" class="form-control" th:value="${valueAdm?.nome}" name="nome"
-						placeholder="Digite seu nome" id="exampleInputEmail1"
-						aria-describedby="emailHelp">
+						type="text" class="form-control" th:value="${valueAdm?.nome}"
+						name="nome" placeholder="Digite seu nome" id="exampleInputEmail1"
+						aria-describedby="emailHelp" required>
 				</div>
 				<div class="mb-3">
 					<label for="exampleInputEmail1" class="form-label"><i
 						class="fa fa-envelope" style="font-size: 24px"></i> E-mail</label> <input
-						type="email" class="form-control" th:value="${valueAdm?.email}" name="email"
-						placeholder="Digite seu E-mail" id="exampleInputEmail1"
-						aria-describedby="emailHelp">
+						type="email" class="form-control" th:value="${valueAdm?.email}"
+						name="email" placeholder="Digite seu E-mail"
+						id="exampleInputEmail1" aria-describedby="emailHelp" required>
 				</div>
 				<div class="mb-3">
 					<label for="exampleInputPassword1" class="form-label"><i
 						class="fa fa-lock" style="font-size: 24px"></i> Senha</label> <input
-						type="password" class="form-control" name="senha" th:value="${valueAdm?.senha}"
-						placeholder="Digite sua senha" id="exampleInputPassword1">
+						type="password" class="form-control" name="senha"
+						placeholder="Digite sua senha" id="exampleInputPassword1" required>
 				</div>
 				<button type="submit" class="btn btn-primary">
-					<i class="fa fa-floppy-o" style="font-size: 24px"></i><span style="padding: 5px;" th:text="${valueAdm?.id == null ? 'Cadastro' : 'Salvar'}"></span>
+					<i class="fa fa-floppy-o" style="font-size: 24px"></i><span
+						style="padding: 5px;"
+						th:text="${valueAdm?.id == null ? 'Cadastro' : 'Salvar'}"></span>
 				</button>
 
 				<div th:replace="fragments/mensagem"></div>
-				<a href="listaAdmin/1">Listar</a>
-			</div>
+			</form>
 		</div>
-	</form>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script>
+	</div>
+
 </body>
+<script src="https://kit.fontawesome.com/2af22d56bc.js"
+	crossorigin="anonymous"></script>
 </html>

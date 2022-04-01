@@ -16,12 +16,27 @@
 
 </head>
 <body>
-<header th:replace="fragments/padrao :: cabecalho"></header>
-	
-	<a href="cadastroTiposDeQuartos">Cadastrar Quartos</a>
-	
+	<header th:replace="fragments/padrao :: cabecalho"></header>
+
 	<table>
+		<div class="bg-button">
+			<div class="bg-cad-butto">
+				<button class="btn btn-success"
+					onclick="window.location.href = '../cadastroTiposDeQuartos' ">CADASTRAR
+					QUARTOS</button>
+			</div>
+			<div class="search">
+				<form class="d-flex" action="/buscarQuartos/1">
+					<input class="form-control me-2" name="t" type="text"
+						placeholder="Busque Quartos aqui..." aria-label="Search">
+					<button class="btn btn-outline-success" type="submit">
+						<i class="fa-solid fa-magnifying-glass"></i>
+					</button>
+				</form>
+			</div>
+		</div>
 		<thead>
+
 			<tr>
 				<th>Id</th>
 				<th>Nome</th>
@@ -38,29 +53,35 @@
 				<td th:text="${q.descricao}"></td>
 				<td th:text="${q.palavraChave}"></td>
 				<td><a th:href="@{/editarTipoQuarto(id=${q.id})}"><button
-							class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></button></a></td>
+							class="btn btn-warning">
+							<i class="fa-solid fa-pen-to-square" style="color: white;"></i>
+						</button></a></td>
 				<td><a th:href="@{/deletarTipoQuarto(id=${q.id})}"><button
-							class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></a></td>
+							class="btn btn-danger">
+							<i class="fa-solid fa-trash-can"></i>
+						</button></a></td>
 			</tr>
 		</tbody>
+		
 	</table>
+	
+	 
 	<nav aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">
-
-			<li th:class="${pagAtual == 1 ? 'page-item disable' : 'page-item'}"><a
-				th:href="${pagAtual > 1 ? pagAtual -1 : '#'}" class="page-link">Anterior</a></li>
+			<li th:class="${pagAtual == 1 ? 'page-item disabled' : 'page-item'}"><a
+				th:href="|${pagAtual > 1 ? pagAtual -1 : '#'}${busca != null ? '?t='+busca : ''}|" class="page-link">Anterior</a></li>
 
 			<li th:class="${pagAtual == p ? 'page-link' : ''}"
-				th:each="p:${numPaginas}"><a th:href="${p}" class="page-link"><span
+				th:each="p:${numPaginas}"><a th:href="|${p}${busca != null ? '?t='+busca : ''}|" class="page-link"><span
 					th:text="${p}"></span></a></li>
 
 			<li
-				th:class="${pagAtual == totalPags ? 'disable page-item' : 'page-item'}"><a
-				th:href="${pagAtual < totalPags ? pagAtual + 1 : '#'}"
+				th:class="${pagAtual == totalPags ? 'disabled page-item' : 'page-item'}"><a				
+				th:href="|${pagAtual < totalPags ? pagAtual + 1 : '#'}${busca != null ? '?t='+busca : ''}|"
 				class="page-link">Proximo</a></li>
 		</ul>
 	</nav>
-	
+
 	<footer th:replace="fragments/padrao :: rodape"></footer>
 </body>
 <script src="https://kit.fontawesome.com/2af22d56bc.js"
