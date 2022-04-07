@@ -13,4 +13,6 @@ import br.com.hoteis.melhores.hotelbomdemais.model.TipoQuarto;
 public interface TiposDeQuartosRepository extends PagingAndSortingRepository<TipoQuarto, Long> {
 	@Query("SELECT h FROM TipoQuarto h WHERE h.nome LIKE %:t% OR h.descricao LIKE %:t% OR h.palavraChave LIKE %:t%")
 	public Page<TipoQuarto> buscarPorTudo(@Param("t") String t, Pageable pageable);
+	
+	public List<TipoQuarto> findAllByOrderByNomeAsc();
 }

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Cadastro - Hotel</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="style-cadAdm.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="css/cadastro-hotel-css/cadastro-hotel.css">
+</head>
+<body>
+
+	<div class="group">
+		<div class="img">
+			<div class="bg-img"></div>
+		</div>
+		<div class="block">
+			<button class="btn btn-secondary" style="padding: 5px;"
+				onclick="window.location.href = '../listaAdmin/1' ">
+				<i class="fa-solid fa-circle-chevron-left" style="font-size: 24px;"></i>
+			</button>
+			<br> <br>
+			<form method="post" action="salvarAdmin">
+				<h3 for="exampleInputEmail1" class="form-label">Cadastro de
+					Hotel</h3>
+				<hr>
+				<input type="hidden" name="id" th:value="${valueAdm?.id}">
+
+				<div class="big">
+					<div class="m11">
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-chess-queen"></i> Nome</label> <input type="text"
+								class="form-control" name="nome"
+								placeholder="Digite o nome do Hotel.." required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-align-left"></i> Descrição</label> <input type="text"
+								class="form-control" name="descricao"
+								placeholder="Digite a Descrição.." required>
+						</div>
+
+					</div>
+					<div class="m22">
+						<div class="mb-3">
+							<label class="form-label"><i class="fa-solid fa-cat"></i>
+								Espaço Pets </label>
+							<div class="radio">
+								<input type="radio" class="form-check-input" name="zonaPets"
+									value="1" required><span class="spanRadio"> Sim</span>
+								<input type="radio" class="form-check-input" name="zonaPets"
+									value="0" required><span class="spanRadio"> Não</span>
+							</div>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-people-roof"></i> Espaço Kids </label>
+							<div class="radio">
+								<div class="radio">
+									<input type="radio" class="form-check-input" name="zonaKids"
+										value="1" required><span class="spanRadio"> Sim</span>
+									<input type="radio" class="form-check-input" name="zonaKids"
+										value="0" required><span class="spanRadio"> Não</span>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="m33">
+						<div class="mb-3">
+							<label class="form-label"><i class="fa-solid fa-gamepad"></i>
+								Espaço para Lazer </label>
+							<div class="radio">
+								<div class="radio">
+									<input type="radio" class="form-check-input" name="zonaLazer"
+										value="1" required><span class="spanRadio"> Sim</span>
+									<input type="radio" class="form-check-input" name="zonaLazer"
+										value="0" required><span class="spanRadio"> Não</span>
+								</div>
+							</div>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i class="fa-solid fa-car-side"></i>
+								Estacionamento </label>
+							<div class="radio">
+								<div class="radio">
+									<input type="radio" class="form-check-input"
+										name="estacionamento" value="1" required><span
+										class="spanRadio"> Sim</span> <input type="radio"
+										class="form-check-input" name="estacionamento" value="0"
+										required><span class="spanRadio"> Não</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<h3>Preço</h3>
+				<hr>
+				<div class="mb-3">
+					<label class="form-label"><i
+						class="fa-solid fa-money-bill-1-wave"></i> Preço do alojamento </label>
+					<div class="radio">
+						<div class="radio">
+
+							<input type="radio" class="form-check-input" name="preco"
+								value="0" required> <span class="spanRadio">Baratinho</span>
+
+							<input type="radio" class="form-check-input" name="preco"
+								value="1" required> <span class="spanRadio"> No
+								Precinho </span> <input type="radio" class="form-check-input"
+								name="preco" value="2" required> <span class="spanRadio">
+								Só vai silvio santos </span>
+						</div>
+					</div>
+				</div>
+
+				<h3>Endereço</h3>
+				<hr>
+
+				<div class="big">
+					<div class="m1">
+						<div class="mb-3">
+							<label class="form-label"><i class="fa-solid fa-compass"></i>
+								CEP </label> <input type="text" class="form-control" name="cep"
+								placeholder="Digite o CEP..." required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-earth-americas"></i> Endereço </label> <input
+								type="text" class="form-control" name="endereco"
+								placeholder="Digite o CEP..." disabled required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-mountain-sun"></i> Bairro </label> <input type="text"
+								class="form-control" name="bairro" placeholder="Digite o CEP..."
+								disabled required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-satellite"></i> Estado </label> <input type="text"
+								placeholder="Digite o CEP..." class="form-control" disabled
+								name="estado" required>
+						</div>
+					</div>
+					<div class="m2">
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-location-dot"></i> Numero </label> <input type="text"
+								class="form-control" name="numero"
+								placeholder="Digite o número..." required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-map-location"></i> Complemento </label> <input
+								type="text" class="form-control" name="complemento"
+								placeholder="Digite um complemento..." required>
+						</div>
+					</div>
+				</div>
+
+				<h3>Site</h3>
+				<hr>
+
+				<div class="big">
+					<div class="m1">
+						<div class="mb-3">
+							<label class="form-label"><i class="fa-solid fa-sitemap"></i>
+								Site </label> <input type="text" class="form-control"
+								style="width: 750px !important;" name="nome"
+								placeholder="Digite o site do hotel..." required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i class="fa-solid fa-image"></i>
+								Foto </label> <input type="file" class="form-control"
+								style="width: 750px !important;" name="nome" required>
+						</div>
+					</div>
+				</div>
+
+				<button type="submit" class="btn btn-primary">
+					<i class="fa fa-floppy-o" style="font-size: 24px"></i><span
+						style="padding: 5px;"
+						th:text="${valueAdm?.id == null ? 'Cadastro' : 'Salvar'}"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+
+</body>
+<script src="https://kit.fontawesome.com/2af22d56bc.js"
+	crossorigin="anonymous"></script>
+</html>
