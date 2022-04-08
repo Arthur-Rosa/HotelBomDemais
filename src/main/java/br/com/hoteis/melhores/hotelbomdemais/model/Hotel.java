@@ -25,6 +25,7 @@ public class Hotel {
 	private String complemento;
 	private String bairro;
 	private String estado;
+	private String cidade;
 	
 	private String site;
 	private boolean zonaPets;
@@ -33,7 +34,7 @@ public class Hotel {
 	private boolean estacionamento;
 	
 	@ManyToOne
-	private TipoHotel tipo;
+	private TipoHotel tipoHotel;
 	@ManyToOne
 	private TipoQuarto tipoQuarto;
 	@Column(columnDefinition = "TEXT")

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <title>Cadastro - Hotel</title>
@@ -30,11 +30,11 @@
 				<i class="fa-solid fa-circle-chevron-left" style="font-size: 24px;"></i>
 			</button>
 			<br> <br>
-			<form method="post" action="salvarAdmin">
+			<form method="post" action="salvarHotel" enctype="multipart/form-data">
 				<h3 for="exampleInputEmail1" class="form-label">Cadastro de
 					Hotel</h3>
 				<hr>
-				<input type="hidden" name="id" th:value="${valueAdm?.id}">
+				<input type="hidden" name="id" th:value="${hotel?.id}">
 
 				<div class="big">
 					<div class="m11">
@@ -74,9 +74,7 @@
 										value="0" required><span class="spanRadio"> Não</span>
 								</div>
 							</div>
-
 						</div>
-
 					</div>
 					<div class="m33">
 						<div class="mb-3">
@@ -104,9 +102,36 @@
 								</div>
 							</div>
 						</div>
+
 					</div>
 				</div>
+				<h3>Selecione</h3>
+				<hr>
+				<div class="big">
+					<div class="m1">
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-arrow-pointer"></i> Selecione tipo do Hotel</label> <select
+								class="form-select" required name="tipoHotel.id">
+								<option value="" disabled selected>Tipo do Hotel</option>
+								<option th:each="h: ${tipoHotel}" th:value="${h.id}"
+									th:text="${h.nome}"></option>
+							</select>
+						</div>
+					</div>
 
+					<div class="m1">
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-arrow-pointer"></i> Selecione tipo do Quarto</label>
+							<select class="form-select" required name="tipoQuarto.id">
+								<option value="" disabled selected>Tipo do Quarto</option>
+								<option th:each="q: ${tipoQuarto}" th:value="${q.id}"
+									th:text="${q.nome}"></option>
+							</select>
+						</div>
+					</div>
+				</div>
 				<h3>Preço</h3>
 				<hr>
 				<div class="mb-3">
@@ -134,29 +159,35 @@
 					<div class="m1">
 						<div class="mb-3">
 							<label class="form-label"><i class="fa-solid fa-compass"></i>
-								CEP </label> <input type="text" class="form-control" name="cep"
+								CEP </label> <input type="text" class="form-control" id="cep" name="cep"
 								placeholder="Digite o CEP..." required>
 						</div>
 						<div class="mb-3">
 							<label class="form-label"><i
 								class="fa-solid fa-earth-americas"></i> Endereço </label> <input
-								type="text" class="form-control" name="endereco"
-								placeholder="Digite o CEP..." disabled required>
+								type="text" class="form-control" id="endereco" name="endereco"
+								placeholder="Digite o CEP..." readonly required>
 						</div>
 						<div class="mb-3">
 							<label class="form-label"><i
 								class="fa-solid fa-mountain-sun"></i> Bairro </label> <input type="text"
-								class="form-control" name="bairro" placeholder="Digite o CEP..."
-								disabled required>
+								class="form-control" name="bairro" id="bairro"
+								placeholder="Digite o CEP..." readonly required>
 						</div>
 						<div class="mb-3">
 							<label class="form-label"><i
 								class="fa-solid fa-satellite"></i> Estado </label> <input type="text"
-								placeholder="Digite o CEP..." class="form-control" disabled
-								name="estado" required>
+								placeholder="Digite o CEP..." id="estado" class="form-control"
+								readonly name="estado" required>
 						</div>
 					</div>
 					<div class="m2">
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-satellite"></i> Cidade </label> <input type="text"
+								placeholder="Digite o CEP..." id="cidade" class="form-control"
+								readonly name="cidade" required>
+						</div>
 						<div class="mb-3">
 							<label class="form-label"><i
 								class="fa-solid fa-location-dot"></i> Numero </label> <input type="text"
@@ -180,13 +211,15 @@
 						<div class="mb-3">
 							<label class="form-label"><i class="fa-solid fa-sitemap"></i>
 								Site </label> <input type="text" class="form-control"
-								style="width: 750px !important;" name="nome"
+								style="width: 750px !important;" name="site"
 								placeholder="Digite o site do hotel..." required>
 						</div>
 						<div class="mb-3">
 							<label class="form-label"><i class="fa-solid fa-image"></i>
 								Foto </label> <input type="file" class="form-control"
-								style="width: 750px !important;" name="nome" required>
+								style="width: 750px !important;" name="fileFotos" multiple
+								accept="image/*" placeholder="Upload de um ou várias fotos"
+								required>
 						</div>
 					</div>
 				</div>
@@ -201,6 +234,13 @@
 	</div>
 
 </body>
-<script src="https://kit.fontawesome.com/2af22d56bc.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/2af22d56bc.js"></script>
+<script src="/js/find_cep.js"></script>
+<script type="text/javascript" src="/js/jquery-126.js"></script>
+<script type="text/javascript" src="/js/jquery-mask.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#cep").mask('99999-999');
+	});
+</script>
 </html>

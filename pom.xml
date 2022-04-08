@@ -60,7 +60,12 @@
 			<artifactId>guava</artifactId>
 			<version>31.1-jre</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/com.google.firebase/firebase-admin -->
+		<dependency>
+		    <groupId>com.google.firebase</groupId>
+		    <artifactId>firebase-admin</artifactId>
+		    <version>8.1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
