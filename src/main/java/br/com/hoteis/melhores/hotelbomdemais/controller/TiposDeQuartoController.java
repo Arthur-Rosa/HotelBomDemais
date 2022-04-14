@@ -63,8 +63,9 @@ public class TiposDeQuartoController {
 			attr.addFlashAttribute("mensagemSucesso", "Quarto cadastro com Sucesso!! ID: " + t.getId());
 		} catch (Exception e) {
 			attr.addFlashAttribute("mensagemErro", "Ocorreu um erro ao cadastrar / Error : " + e.getMessage());
+			return "redirect:cadastroTiposDeQuartos";
 		}
-		return "redirect:cadastroTiposDeQuartos";
+		return "redirect:listarTiposDeQuartos/1";
 	}
 
 	@RequestMapping("editarTipoQuarto")

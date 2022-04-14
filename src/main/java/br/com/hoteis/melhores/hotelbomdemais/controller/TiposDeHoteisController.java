@@ -64,8 +64,9 @@ public class TiposDeHoteisController {
 			attr.addFlashAttribute("mensagemSucesso", "Hotel cadastro com Sucesso!! ID: " + h.getId());
 		} catch (Exception e) {
 			attr.addFlashAttribute("mensagemErro", "Ocorreu um erro ao cadastrar / Error : " + e.getMessage());
+			return "redirect:cadastroTiposDeHoteis";
 		}
-		return "redirect:cadastroTiposDeHoteis";
+		return "redirect:buscarHoteis/1";
 	}
 
 	@RequestMapping("editarTipo")

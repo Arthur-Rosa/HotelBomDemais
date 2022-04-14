@@ -40,4 +40,9 @@ public class Hotel {
 	@Column(columnDefinition = "TEXT")
 	private String fotos;
 	private int preco;
+	
+	// retorna as fotos em vetor de string
+	public String[] verFotos() {
+		return fotos.split(";");
+	}
 }

@@ -72,8 +72,9 @@ public class AdminController {
 			attr.addFlashAttribute("mensagemSucesso", "Administrador cadastro com Sucesso!! ID: " + admin.getId());
 		} catch (Exception e) {
 			attr.addFlashAttribute("mensagemErro", "Ocorreu um erro ao cadastrar / Error : " + e.getMessage());
+			return "redirect:cadastroAdmin";
 		}
-		return "redirect:cadastroAdmin";
+		return "redirect:listaAdmin/1";
 	}
 
 	@RequestMapping("listaAdmin/{page}")
