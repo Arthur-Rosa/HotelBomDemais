@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="bg-nav" th:fragment="nav">
+		<div class="tittle-nav">
+			<img class="tittle-nav-img" src="/icon-first.png" /> <span
+				class="tittle-nav-text">HotelBomDemais</span>
+		</div>
+		<div class="nav-list">
+			<ul>
+				<li><a href="dashboard.html"> <i
+						class="fa-solid fa-gauge-high ico"></i><span class="li-menu">Dashboard</span>
+				</a></li>
+				<li><a href="/listarHotel/1"> <i class="fa-solid fa-hotel ico"></i><span
+						class="li-menu">Hotel</span>
+				</a></li>
+				<li><a href="/listarTiposDeHoteis/1" class="selected"> <i
+						class="fa-solid fa-bell-concierge ico"></i><span class="li-menu">Tipo
+							de Hotel</span>
+				</a></li>
+				<li><a href="/listarTiposDeQuartos/1"> <i
+						class="fa-solid fa-house-medical"></i><span class="li-menu">Tipo
+							de Quarto</span>
+				</a></li>
+				<li><a href="/listaAdmin/1"> <i
+						class="fa fa-user-circle-o"></i><span class="li-menu">Administrador</span>
+				</a></li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

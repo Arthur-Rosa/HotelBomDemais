@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.Binding;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +29,6 @@ public class AdminController {
 	// variavel para persistencia dos dados
 	@Autowired
 	private AdminRepository repAdmin;
-
-	@RequestMapping("/")
-	public void handleRequest() {
-		throw new RuntimeException("exception");
-	}
 
 	// request do formulario do tipo GET
 	@RequestMapping("cadastroAdmin")
@@ -131,6 +127,21 @@ public class AdminController {
 		model.addAttribute("pagAtual", page);
 		model.addAttribute("busca", t);
 		return "administrador/lista";
+	}
+	
+	@RequestMapping("login")
+	public String login(Administrador admLogin, RedirectAttributes attr, HttpSession session) {
+		// busca o Adm no banco
+		Administrador admin = repAdmin.findByEmailAndSenha(admLogin.getEmail(), admLogin.getSenha());
+		// verifica se existe
+		if(admin == null) {
+			attr.addFlashAttribute("mensagemErro", "Login e/ou Senha inválido(s)");
+			return "redirect:/";
+		} else {
+			// salva o admin na session
+			session.setAttribute("usuarioLogado", admin);
+			return "redirect:listarHotel/1";
+		}
 	}
 
 }

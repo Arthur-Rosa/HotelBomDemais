@@ -247,6 +247,7 @@
 
 					</div>
 				</div>
+				<input type="hidden" th:value="${h?.fotos}" name="fotos" />
 				<div th:if="${h?.fotos?.length > 0}">
 					<h3>Fotos Cadastradas</h3>
 					<hr>
@@ -257,9 +258,11 @@
 								<div>
 									<ul
 										style="list-style: none; display: flex; padding: 0px; flex-wrap: wrap;">
-										<li th:each="foto : ${h?.verFotos()}" style="padding: 10px;"><a
-											target="_blank" th:href="${foto}"><img height="200"
-												width="200" th:src="${foto}"></a></li>
+										<li th:each="foto, i : ${h?.verFotos()}" style="padding: 10px;"><a
+											target="_blank" th:href="${foto}"><img height="100"
+												width="100" th:src="${foto}"></a>
+												<a th:href="@{/excluirFotos(idHotel=${h?.id},numFoto=${i.index})}"><i class="fa-solid fa-trash-can"></i></a>		
+										</li>
 									</ul>
 								</div>
 							</div>

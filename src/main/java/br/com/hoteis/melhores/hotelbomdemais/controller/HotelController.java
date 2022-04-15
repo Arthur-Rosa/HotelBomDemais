@@ -44,13 +44,13 @@ public class HotelController {
 	public String form(Model model) {
 		model.addAttribute("tipoHotel", repTipoHotel.findAllByOrderByNomeAsc());
 		model.addAttribute("tipoQuarto", repTipoQuarto.findAllByOrderByNomeAsc());
-		return "redirect:listarHotel/1";
+		return "hotel/hotelCadastro";
 	}
 
 	@RequestMapping("salvarHotel")
 	public String salvar(Hotel hotel, @RequestParam("fileFotos") MultipartFile[] fileFotos) {
 		// String para armazernar as URLs
-		String fotos = "";
+		String fotos = hotel.getFotos();
 		// percorre cada arquivo no vetor
 		for (MultipartFile arquivo : fileFotos) {
 			// verifica se o arquivo existe
@@ -70,9 +70,22 @@ public class HotelController {
 		hotel.setFotos(fotos);
 		// salva no DB
 		repHotel.save(hotel);
-		return "redirect:cadastroHotel";
+		return "redirect:listarHotel/1";
 	}
 
+	@RequestMapping("deletarHotel")
+	public String excluirHotel(Long id) {
+		Hotel h = repHotel.findById(id).get();
+		if(h.getFotos().length() > 0) {
+			for (String foto : h.verFotos()) {
+				fireUtil.deletar(foto);
+			}
+		}
+		repHotel.delete(h);
+		
+		return "redirect:listarHotel/1";
+	}
+	
 	@RequestMapping("listarHotel/{page}")
 	public String listarHotel(Model model, @PathVariable("page") int page) {
 
