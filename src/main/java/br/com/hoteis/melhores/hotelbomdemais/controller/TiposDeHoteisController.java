@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.hoteis.melhores.hotelbomdemais.annotation.Privado;
 import br.com.hoteis.melhores.hotelbomdemais.model.TipoHotel;
 import br.com.hoteis.melhores.hotelbomdemais.repository.TiposDeHoteisRepository;
 import br.com.hoteis.melhores.hotelbomdemais.util.HashUtil;
@@ -27,6 +28,7 @@ public class TiposDeHoteisController {
 	@Autowired
 	private TiposDeHoteisRepository repTip;
 
+	@Privado
 	@RequestMapping("listarTiposDeHoteis/{page}")
 	public String listarTipos(Model model, @PathVariable("page") int page) {
 		PageRequest pageable = PageRequest.of(page - 1, 6, Sort.by(Sort.Direction.ASC, "nome"));
@@ -46,11 +48,13 @@ public class TiposDeHoteisController {
 		return "tiposDeHoteis/listaTiposDeHoteis";
 	}
 
+	@Privado
 	@RequestMapping("cadastroTiposDeHoteis")
 	public String cadastrarTiposFront() {
 		return "tiposDeHoteis/cadasTiposDeHoteis";
 	}
 
+	@Privado
 	@RequestMapping(value = "salvarTiposDeHoteis", method = RequestMethod.POST)
 	public String cadastrarTipo(@Valid TipoHotel h, BindingResult result, RedirectAttributes attr) {
 		
@@ -69,6 +73,7 @@ public class TiposDeHoteisController {
 		return "redirect:buscarHoteis/1";
 	}
 
+	@Privado
 	@RequestMapping("editarTipo")
 	public String editar(Long id, Model model) {
 		TipoHotel t = repTip.findById(id).get();
@@ -76,6 +81,7 @@ public class TiposDeHoteisController {
 		return "forward:cadastroTiposDeHoteis";
 	}
 	
+	@Privado
 	@RequestMapping("buscarHoteis/{page}")
 	public String listarBusca(@PathVariable("page") int page, Model model, String t) {
 		PageRequest pageable = PageRequest.of(page - 1, 6, Sort.by(Sort.Direction.ASC, "nome"));
@@ -97,6 +103,7 @@ public class TiposDeHoteisController {
 		return "tiposDeHoteis/listaTiposDeHoteis";
 	}
 
+	@Privado
 	@RequestMapping("deletarTipo")
 	public String deletarTipo(Long id) {
 		repTip.deleteById(id);

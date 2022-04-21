@@ -11,4 +11,7 @@ import br.com.hoteis.melhores.hotelbomdemais.model.Hotel;
 public interface HotelRepository extends PagingAndSortingRepository<Hotel, Long> {
 	@Query("SELECT h FROM Hotel h WHERE h.nome LIKE %:t% OR h.descricao LIKE %:t%")
 	public Page<Hotel> buscarPorTudo(@Param("t") String t, Pageable pageable);
+	
+	@Query("SELECT h FROM Hotel h WHERE h.tipoHotel.id = :t")
+	public Iterable<Hotel> buscarPorTipoHotel(@Param("t") Long t);
 }

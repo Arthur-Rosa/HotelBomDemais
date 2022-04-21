@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.hoteis.melhores.hotelbomdemais.annotation.Privado;
+import br.com.hoteis.melhores.hotelbomdemais.annotation.Publico;
 import br.com.hoteis.melhores.hotelbomdemais.model.Administrador;
 import br.com.hoteis.melhores.hotelbomdemais.repository.AdminRepository;
 import br.com.hoteis.melhores.hotelbomdemais.util.HashUtil;
@@ -31,12 +33,14 @@ public class AdminController {
 	private AdminRepository repAdmin;
 
 	// request do formulario do tipo GET
+	@Privado
 	@RequestMapping("cadastroAdmin")
 	public String cadastroAdmin() {
 		return "administrador/cadastroAdministrador";
 	}
 
 	// Request mapping para salvar o administrador
+	@Privado
 	@RequestMapping(value = "salvarAdmin", method = RequestMethod.POST)
 	public String salvarAdmin(@Valid Administrador admin, BindingResult result, RedirectAttributes attr) {
 		// verifica se houveram erros na validação
@@ -73,6 +77,7 @@ public class AdminController {
 		return "redirect:listaAdmin/1";
 	}
 
+	@Privado
 	@RequestMapping("listaAdmin/{page}")
 	public String listaAdmin(Model model, @PathVariable("page") int page) {
 		// cria um pageable informando os parametros da pagina
@@ -96,6 +101,7 @@ public class AdminController {
 		return "administrador/lista";
 	}
 
+	@Privado
 	@RequestMapping("editarAdm")
 	public String editarAdm(Long id, Model model) {
 		Administrador adm = repAdmin.findById(id).get();
@@ -103,12 +109,14 @@ public class AdminController {
 		return "forward:cadastroAdmin";
 	}
 
+	@Privado
 	@RequestMapping("deletarAdm")
 	public String deletaAdm(Long id) {
 		repAdmin.deleteById(id);
 		return "redirect:listaAdmin/1";
 	}
 
+	@Privado
 	@RequestMapping("buscarAdms/{page}")
 	public String listarBusca(@PathVariable("page") int page, Model model, String t) {
 		PageRequest pageable = PageRequest.of(page - 1, 6, Sort.by(Sort.Direction.ASC, "nome"));
@@ -117,7 +125,7 @@ public class AdminController {
 		List<Integer> numPaginas = new ArrayList<Integer>();
 
 		model.addAttribute("admins", pagina.getContent());
-		
+
 		for (int i = 1; i <= totalPages; i++) {
 			numPaginas.add(i);
 		}
@@ -128,13 +136,14 @@ public class AdminController {
 		model.addAttribute("busca", t);
 		return "administrador/lista";
 	}
-	
+
+	@Publico
 	@RequestMapping("login")
 	public String login(Administrador admLogin, RedirectAttributes attr, HttpSession session) {
 		// busca o Adm no banco
 		Administrador admin = repAdmin.findByEmailAndSenha(admLogin.getEmail(), admLogin.getSenha());
 		// verifica se existe
-		if(admin == null) {
+		if (admin == null) {
 			attr.addFlashAttribute("mensagemErro", "Login e/ou Senha inválido(s)");
 			return "redirect:/";
 		} else {
@@ -142,6 +151,16 @@ public class AdminController {
 			session.setAttribute("usuarioLogado", admin);
 			return "redirect:listarHotel/1";
 		}
+	}
+
+	@Privado
+	@RequestMapping("logout")
+	public String logout(HttpSession session) {
+		System.out.println("aaaaaaaaaaa");
+		// invalida sessao
+		session.invalidate();
+		// volta para a pagina inicial
+		return "redirect:/";
 	}
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.hoteis.melhores.hotelbomdemais.annotation.Privado;
 import br.com.hoteis.melhores.hotelbomdemais.model.Administrador;
 import br.com.hoteis.melhores.hotelbomdemais.model.Hotel;
 import br.com.hoteis.melhores.hotelbomdemais.model.TipoHotel;
@@ -40,6 +41,7 @@ public class HotelController {
 	@Autowired
 	private FirebaseUtil fireUtil;
 
+	@Privado
 	@RequestMapping("cadastroHotel")
 	public String form(Model model) {
 		model.addAttribute("tipoHotel", repTipoHotel.findAllByOrderByNomeAsc());
@@ -47,6 +49,7 @@ public class HotelController {
 		return "hotel/hotelCadastro";
 	}
 
+	@Privado
 	@RequestMapping("salvarHotel")
 	public String salvar(Hotel hotel, @RequestParam("fileFotos") MultipartFile[] fileFotos) {
 		// String para armazernar as URLs
@@ -73,19 +76,21 @@ public class HotelController {
 		return "redirect:listarHotel/1";
 	}
 
+	@Privado
 	@RequestMapping("deletarHotel")
 	public String excluirHotel(Long id) {
 		Hotel h = repHotel.findById(id).get();
-		if(h.getFotos().length() > 0) {
+		if (h.getFotos().length() > 0) {
 			for (String foto : h.verFotos()) {
 				fireUtil.deletar(foto);
 			}
 		}
 		repHotel.delete(h);
-		
+
 		return "redirect:listarHotel/1";
 	}
-	
+
+	@Privado
 	@RequestMapping("listarHotel/{page}")
 	public String listarHotel(Model model, @PathVariable("page") int page) {
 
@@ -106,6 +111,7 @@ public class HotelController {
 		return "hotel/listarHotel";
 	}
 
+	@Privado
 	@RequestMapping("editarHotel")
 	public String editar(Model model, Long id) {
 		Hotel h = repHotel.findById(id).get();
@@ -115,6 +121,7 @@ public class HotelController {
 		return "forward:cadastroHotel";
 	}
 
+	@Privado
 	@RequestMapping("buscarOsHoteis/{page}")
 	public String listarBusca(@PathVariable("page") int page, Model model, String t) {
 		PageRequest pageable = PageRequest.of(page - 1, 6, Sort.by(Sort.Direction.ASC, "nome"));
@@ -136,6 +143,7 @@ public class HotelController {
 		return "hotel/listarHotel";
 	}
 
+	@Privado
 	@RequestMapping("excluirFotos")
 	public String excluirFotos(Long idHotel, int numFoto, Model model) {
 		// busca hotel no banco
@@ -145,7 +153,7 @@ public class HotelController {
 		// deleta a foto
 		fireUtil.deletar(urlFoto);
 		// remove a url do atributo fotos
-		h.setFotos(h.getFotos().replace(urlFoto+";", ""));
+		h.setFotos(h.getFotos().replace(urlFoto + ";", ""));
 		// salva no BD
 		repHotel.save(h);
 		// coloca o h para o formulario

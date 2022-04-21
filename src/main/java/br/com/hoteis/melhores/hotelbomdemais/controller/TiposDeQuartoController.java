@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.hoteis.melhores.hotelbomdemais.annotation.Privado;
 import br.com.hoteis.melhores.hotelbomdemais.model.TipoHotel;
 import br.com.hoteis.melhores.hotelbomdemais.model.TipoQuarto;
 import br.com.hoteis.melhores.hotelbomdemais.repository.TiposDeQuartosRepository;
@@ -28,6 +29,7 @@ public class TiposDeQuartoController {
 	@Autowired
 	private TiposDeQuartosRepository repQuarto;
 
+	@Privado
 	@RequestMapping("listarTiposDeQuartos/{page}")
 	public String listar(Model model, @PathVariable("page") int page, String t) {
 		PageRequest pageable = PageRequest.of(page - 1, 6, Sort.by(Sort.Direction.ASC, "nome"));
@@ -47,11 +49,13 @@ public class TiposDeQuartoController {
 		return "tiposDeQuarto/listaTiposDeQuarto";
 	}
 
+	@Privado
 	@RequestMapping("cadastroTiposDeQuartos")
 	public String cadas() {
 		return "tiposDeQuarto/cadasTiposDeQuartos";
 	}
 
+	@Privado
 	@RequestMapping(value = "salvarTiposDeQuartos", method = RequestMethod.POST)
 	public String salvar(@Valid TipoQuarto t, BindingResult result, RedirectAttributes attr) {
 		if (result.hasErrors()) {
@@ -68,6 +72,7 @@ public class TiposDeQuartoController {
 		return "redirect:listarTiposDeQuartos/1";
 	}
 
+	@Privado
 	@RequestMapping("editarTipoQuarto")
 	public String editar(Long id, Model model) {
 		TipoQuarto q = repQuarto.findById(id).get();
@@ -75,12 +80,14 @@ public class TiposDeQuartoController {
 		return "forward:cadastroTiposDeQuartos";
 	}
 
+	@Privado
 	@RequestMapping("deletarTipoQuarto")
 	public String deletar(Long id) {
 		repQuarto.deleteById(id);
 		return "redirect:listarTiposDeQuartos/1";
 	}
 	
+	@Privado
 	@RequestMapping("buscarQuartos/{page}")
 	public String listarBusca(@PathVariable("page") int page, Model model,String t) {
 		PageRequest pageable = PageRequest.of(page - 1, 6, Sort.by(Sort.Direction.ASC, "nome"));
