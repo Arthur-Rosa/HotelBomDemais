@@ -38,8 +38,8 @@ public class HotelController {
 	@Autowired
 	private HotelRepository repHotel;
 
-	@Autowired
-	private FirebaseUtil fireUtil;
+	// @Autowired
+	// private FirebaseUtil fireUtil;
 
 	@Privado
 	@RequestMapping("cadastroHotel")
@@ -53,7 +53,7 @@ public class HotelController {
 	@RequestMapping("salvarHotel")
 	public String salvar(Hotel hotel, @RequestParam("fileFotos") MultipartFile[] fileFotos) {
 		// String para armazernar as URLs
-		String fotos = hotel.getFotos();
+		// String fotos = hotel.getFotos();
 		// percorre cada arquivo no vetor
 		for (MultipartFile arquivo : fileFotos) {
 			// verifica se o arquivo existe
@@ -61,16 +61,16 @@ public class HotelController {
 				// vai para o proximo arquivo
 				continue;
 			}
-			try {
+			// try {
 				// faz o upload e Guarda a url na String fotos
-				fotos += fireUtil.upload(arquivo) + ";";
-			} catch (IOException e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}
+				// fotos += fireUtil.upload(arquivo) + ";";
+			// } catch (IOException e) {
+			// 	e.printStackTrace();
+			//	throw new RuntimeException(e);
+			// }
 		}
 		// guarda na variavel hotel as fotos
-		hotel.setFotos(fotos);
+		// hotel.setFotos(fotos);
 		// salva no DB
 		repHotel.save(hotel);
 		return "redirect:listarHotel/1";
@@ -80,11 +80,11 @@ public class HotelController {
 	@RequestMapping("deletarHotel")
 	public String excluirHotel(Long id) {
 		Hotel h = repHotel.findById(id).get();
-		if (h.getFotos().length() > 0) {
-			for (String foto : h.verFotos()) {
-				fireUtil.deletar(foto);
-			}
-		}
+		// if (h.getFotos().length() > 0) {
+		// 	for (String foto : h.verFotos()) {
+		//		fireUtil.deletar(foto);
+		//	}
+		// }
 		repHotel.delete(h);
 
 		return "redirect:listarHotel/1";
@@ -143,6 +143,11 @@ public class HotelController {
 		return "hotel/listarHotel";
 	}
 
+	/***
+	 * 
+	 * Desabilitado
+	 * 
+	
 	@Privado
 	@RequestMapping("excluirFotos")
 	public String excluirFotos(Long idHotel, int numFoto, Model model) {
@@ -159,5 +164,5 @@ public class HotelController {
 		// coloca o h para o formulario
 		model.addAttribute("h", h);
 		return "forward:cadastroHotel";
-	}
+	} */
 }

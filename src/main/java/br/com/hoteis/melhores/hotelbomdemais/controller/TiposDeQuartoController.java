@@ -49,6 +49,8 @@ public class TiposDeQuartoController {
 		return "tiposDeQuarto/listaTiposDeQuarto";
 	}
 
+	
+	
 	@Privado
 	@RequestMapping("cadastroTiposDeQuartos")
 	public String cadas() {

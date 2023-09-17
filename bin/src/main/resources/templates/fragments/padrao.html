@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<header th:fragment="cabecalho">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">
+      <img src="/miniLogo.png" alt="" width="30" height="30" class="d-inline-block align-text-top"> HotelBomDemais</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarText"
+					aria-controls="navbarText" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarText">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link" href="/listarHotel/1">Hotel</a>
+						</li>
+						<li class="nav-item"><a class="nav-link" href="/listaAdmin/1">Lista de Admins</a>
+						</li>
+						<li class="nav-item"><a class="nav-link" href="/listarTiposDeHoteis/1">Lista de TiposDeHoteis</a>
+						</li>
+						<li class="nav-item"><a class="nav-link" href="/listarTiposDeQuartos/1">Lista de TiposDeQuarto</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<footer th:fragment="rodape" class="bg-dark text-center text-white">
+		<!-- Copyright -->
+		<div class="text-center p-3"
+			style="background-color: rgba(0, 0, 0, 0.2);">
+			2022 Copyright: HotelBomDemais.com
+		</div>
+		<!-- Copyright -->
+
+	</footer>
+</body>
+</html>

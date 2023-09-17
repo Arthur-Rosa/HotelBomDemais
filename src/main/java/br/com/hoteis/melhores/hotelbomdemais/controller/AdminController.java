@@ -33,16 +33,17 @@ public class AdminController {
 	private AdminRepository repAdmin;
 
 	// request do formulario do tipo GET
-	@Privado
+	@Publico
 	@RequestMapping("cadastroAdmin")
 	public String cadastroAdmin() {
 		return "administrador/cadastroAdministrador";
 	}
 
 	// Request mapping para salvar o administrador
-	@Privado
+	@Publico
 	@RequestMapping(value = "salvarAdmin", method = RequestMethod.POST)
 	public String salvarAdmin(@Valid Administrador admin, BindingResult result, RedirectAttributes attr) {
+
 		// verifica se houveram erros na validação
 		if (result.hasErrors()) {
 			attr.addFlashAttribute("mensagemErro", "Verifique os Campos ...");

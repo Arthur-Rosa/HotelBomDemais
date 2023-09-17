@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TiposHotel - ADM</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous" />
+<link rel="stylesheet" href="/css/principal-css/principal-css.css" />
+</head>
+<body>
+	<div class="content-dad-flex">
+
+		<!-- <div th:if="${session.usuarioLogado != null}"></div> -->
+
+		<div class="bg-nav">
+			<div class="tittle-nav">
+				<img class="tittle-nav-img" src="/icon-first.png" /> <span
+					class="tittle-nav-text">HotelBomDemais</span>
+			</div>
+			<div class="nav-list">
+				<ul>
+					<li><a href="dashboard.html"> <i
+							class="fa-solid fa-gauge-high ico"></i><span class="li-menu">Dashboard</span>
+					</a></li>
+					<li><a href="/listarHotel/1" class="selected"> <i
+							class="fa-solid fa-hotel ico"></i><span class="li-menu">Hotel</span>
+					</a></li>
+					<li><a href="/listarTiposDeHoteis/1"> <i
+							class="fa-solid fa-bell-concierge ico"></i><span class="li-menu">Tipo
+								de Hotel</span>
+					</a></li>
+					<li><a href="/listarTiposDeQuartos/1"> <i
+							class="fa-solid fa-house-medical"></i><span class="li-menu">Tipo
+								de Quarto</span>
+					</a></li>
+					<li><a href="/listaAdmin/1"> <i
+							class="fa fa-user-circle-o"></i><span class="li-menu">Administrador</span>
+					</a></li>
+					<li><a href="/logout"> <i class="fa-solid fa-door-open"></i><span class="li-menu">Sair</span>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="bg-content">
+			<div class="conteudo">
+				<h1>Hotel</h1>
+				<hr />
+				<br />
+				<div class="search">
+					<form class="d-flex" action="/buscarOsHoteis/1">
+						<input class="form-control me-2" name="t" type="text"
+							placeholder="Busque HOTEIS aqui..." aria-label="Search" />
+						<button class="btn btn-outline-success btn-busque" type="submit">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					</form>
+					<button class="btn btn-success btn-cada"
+						onclick="window.location.href = '../cadastroHotel' ">CADASTRAR
+						HOTEIS</button>
+				</div>
+
+				<br />
+				<div class="values-blocks">
+					<div class="block">
+						<div class="rounded">
+							<i class="fa-solid fa-hotel ico"></i>
+						</div>
+						<h2>Total De Hoteis</h2>
+						<hr />
+						<span class="block-tittle">Hoteis</span>
+						<h2>80</h2>
+					</div>
+				</div>
+				<br />
+				<h1>Lista de Hoteis</h1>
+				<hr />
+				<div class="lista-bg">
+					<div class="lista" th:each="h:${hoteis}">
+						<table>
+							<thead>
+								<tr>
+									<th>Id</th>
+									<th>Nome</th>
+									<th>Descrição</th>
+									<th>Tipo Hotel</th>
+									<th>CEP</th>
+									<th>Editar</th>
+									<th>Excluir</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td th:text="${h.id}"></td>
+									<td th:text="${h.nome}"></td>
+									<td th:text="${h.descricao}"></td>
+									<td th:text="${h.tipoHotel.nome}"></td>
+									<td th:text="${h.cep}"></td>
+									<td><a th:href="@{/editarHotel(id=${h.id})}"><button
+												class="btn btn-warning">
+												<i class="fa-solid fa-pen-to-square" style="color: white;"></i>
+											</button></a></td>
+									<td><a th:href="@{/deletarHotel(id=${h.id})}"><button
+												class="btn btn-danger">
+												<i class="fa-solid fa-trash-can"></i>
+											</button></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li
+						th:class="${pagAtual == 1 ? 'page-item disabled' : 'page-item'}">
+						<a
+						th:href="|${pagAtual > 1 ? pagAtual -1 : ''}${busca != null ? '?t='+busca : ''}|"
+						class="page-link">Anterior</a>
+					</li>
+
+					<li th:class="${pagAtual == p ? 'page-link' : ''}"
+						th:each="p:${numPaginas}"><a
+						th:href="|${p}${busca != null ? '?t='+busca : ''}|"
+						class="page-link"><span th:text="${p}"></span></a></li>
+
+					<li
+						th:class="${pagAtual == totalPags ? 'disabled page-item' : 'page-item'}">
+						<a
+						th:href="|${pagAtual < totalPags ? pagAtual + 1 : ''}${busca != null ? '?t='+busca : ''}|"
+						class="page-link">Proximo</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</body>
+<script src="https://kit.fontawesome.com/2af22d56bc.js"
+	crossorigin="anonymous"></script>
+</html>

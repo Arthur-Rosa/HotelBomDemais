@@ -1,0 +1,52 @@
+@charset "ISO-8859-1";
+html{
+	overflow: hidden;
+}
+.block{
+	padding: 50px;
+	width: 650px !important;
+	margin-right: auto;
+	margin-left: 10%;
+	margin-top: 15%;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.bg-img{
+	background-image: url('bgAdmLeve.png');
+	
+	
+  	background-repeat: no-repeat;
+  	width: 714px;
+  	height: 100vh;
+}
+.bg-img-quarto{
+	background-image: url('bgQuartoCad.png');
+	
+	
+  	background-repeat: no-repeat;
+  	width: 714px;
+  	height: 100vh;
+}
+.bg-img-hotel{
+	background-image: url('bgCadHotel.png');
+	
+	
+  	background-repeat: no-repeat;
+  	width: 714px;
+  	height: 100vh;
+}
+
+.group{
+	display: flex;
+}
+.success{
+	background-color: green;
+	color: white;
+	padding: 10px;
+	margin-top: 25px;
+}
+.danger{
+	background-color: red;
+	color: white;
+	padding: 10px;
+	margin-top: 25px;
+}

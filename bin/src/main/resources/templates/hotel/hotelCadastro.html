@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Cadastro - Hotel</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="style-cadAdm.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="css/cadastro-hotel-css/cadastro-hotel.css">
+</head>
+<body>
+
+	<div class="group">
+		<div class="img">
+			<div class="bg-img"></div>
+		</div>
+		<div class="block">
+			<button class="btn btn-secondary" style="padding: 5px;"
+				onclick="window.location.href = '../listarHotel/1' ">
+				<i class="fa-solid fa-circle-chevron-left" style="font-size: 24px;"></i>
+			</button>
+			<br> <br>
+			<form method="post" action="salvarHotel"
+				enctype="multipart/form-data">
+				<h3 for="exampleInputEmail1" class="form-label">Cadastro de
+					Hotel</h3>
+				<hr>
+				<input type="hidden" name="id" th:value="${h?.id}">
+
+				<div class="big">
+					<div class="m11">
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-chess-queen"></i> Nome</label> <input
+								th:value="${h?.nome}" type="text" class="form-control"
+								name="nome" placeholder="Digite o nome do Hotel.." required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-align-left"></i> Descrição</label> <input type="text"
+								class="form-control" name="descricao" th:value="${h?.descricao}"
+								placeholder="Digite a Descrição.." required>
+						</div>
+
+					</div>
+
+					<div class="m22">
+						<div class="mb-3">
+							<label class="form-label"><i class="fa-solid fa-cat"></i>
+								Espaço Pets </label>
+							<div class="radio">
+								<input type="radio" class="form-check-input" name="zonaPets"
+									value="1" th:checked="${h?.zonaPets}" required><span
+									class="spanRadio"> Sim</span> <input type="radio"
+									class="form-check-input" name="zonaPets" value="0"
+									th:checked="${h?.zonaPets == false}" required><span
+									class="spanRadio"> Não</span>
+							</div>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-people-roof"></i> Espaço Kids </label>
+							<div class="radio">
+								<div class="radio">
+									<input type="radio" class="form-check-input" name="zonaKids"
+										value="1" th:checked="${h?.zonaKids}" required><span
+										class="spanRadio"> Sim</span> <input type="radio"
+										class="form-check-input" name="zonaKids" value="0"
+										th:checked="${h?.zonaKids == false}" required><span
+										class="spanRadio"> Não</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="m33">
+						<div class="mb-3">
+							<label class="form-label"><i class="fa-solid fa-gamepad"></i>
+								Espaço para Lazer </label>
+							<div class="radio">
+								<div class="radio">
+									<input type="radio" class="form-check-input" name="zonaLazer"
+										value="1" th:checked="${h?.zonaLazer}" required><span
+										class="spanRadio"> Sim</span> <input type="radio"
+										class="form-check-input" name="zonaLazer" value="0"
+										th:checked="${h?.zonaLazer == false}" required><span
+										class="spanRadio"> Não</span>
+								</div>
+							</div>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i class="fa-solid fa-car-side"></i>
+								Estacionamento </label>
+							<div class="radio">
+								<div class="radio">
+									<input type="radio" class="form-check-input"
+										name="estacionamento" value="1"
+										th:checked="${h?.estacionamento}" required><span
+										class="spanRadio"> Sim</span> <input
+										th:checked="${h?.estacionamento == false}" type="radio"
+										class="form-check-input" name="estacionamento" value="0"
+										required><span class="spanRadio"> Não</span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<h3>Selecione</h3>
+				<hr>
+				<div class="big">
+					<div class="m1">
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-arrow-pointer"></i> Selecione tipo do Hotel</label> <select
+								class="form-select" required name="tipoHotel.id">
+
+
+								<option value="" disabled selected>Tipo do Hotel</option>
+
+								<option th:each="hTipo:${tipoHotel}" th:value="${hTipo.id}"
+									th:text="${hTipo.nome}"
+									th:selected="${hTipo.id == h?.tipoHotel?.id}"></option>
+							</select>
+						</div>
+					</div>
+
+					<div class="m1">
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-arrow-pointer"></i> Selecione tipo do Quarto</label>
+							<select class="form-select" required name="tipoQuarto.id">
+								<option value="" disabled selected>Tipo do Quarto</option>
+								<option th:each="q: ${tipoQuarto}" th:value="${q.id}"
+									th:text="${q.nome}" th:selected="${q.id == h?.tipoQuarto?.id}"></option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<h3>Preço</h3>
+				<hr>
+
+				<div class="mb-3">
+					<label class="form-label"><i
+						class="fa-solid fa-money-bill-1-wave"></i> Preço do alojamento </label>
+					<div class="radio">
+						<div class="radio">
+
+							<input type="radio" class="form-check-input" name="preco"
+								value="0" th:checked="${h?.preco == 0 ? true : false}" required>
+							<span class="spanRadio">Baratinho</span> <input type="radio"
+								class="form-check-input" name="preco" value="1"
+								th:checked="${h?.preco == 1 ? true : false}" required> <span
+								class="spanRadio"> No Precinho </span> <input type="radio"
+								class="form-check-input" name="preco"
+								th:checked="${h?.preco == 2 ? true : false}" value="2" required>
+							<span class="spanRadio"> Só vai silvio santos </span>
+						</div>
+					</div>
+				</div>
+
+				<h3>Endereço</h3>
+				<hr>
+
+				<div class="big">
+					<div class="m1">
+						<div class="mb-3">
+							<label class="form-label"><i class="fa-solid fa-compass"></i>
+								CEP </label> <input type="text" th:value="${h?.cep}"
+								class="form-control" id="cep" name="cep"
+								placeholder="Digite o CEP..." required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-earth-americas"></i> Endereço </label> <input
+								type="text" th:value="${h?.endereco}" class="form-control"
+								id="endereco" name="endereco" placeholder="Digite o CEP..."
+								readonly required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-mountain-sun"></i> Bairro </label> <input type="text"
+								class="form-control" th:value="${h?.bairro}" name="bairro"
+								id="bairro" placeholder="Digite o CEP..." readonly required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-satellite"></i> Estado </label> <input
+								th:value="${h?.estado}" type="text"
+								placeholder="Digite o CEP..." id="estado" class="form-control"
+								readonly name="estado" required>
+						</div>
+					</div>
+					<div class="m2">
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-satellite"></i> Cidade </label> <input type="text"
+								placeholder="Digite o CEP..." th:value="${h?.cidade}"
+								id="cidade" class="form-control" readonly name="cidade" required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-location-dot"></i> Numero </label> <input type="text"
+								class="form-control" name="numero"
+								placeholder="Digite o número..." th:value="${h?.numero}"
+								required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><i
+								class="fa-solid fa-map-location"></i> Complemento </label> <input
+								type="text" class="form-control" th:value="${h?.complemento}"
+								name="complemento" placeholder="Digite um complemento..."
+								required>
+						</div>
+					</div>
+				</div>
+
+				<h3>Site</h3>
+				<hr>
+
+				<div class="big">
+					<div class="m1">
+						<div class="mb-3">
+							<label class="form-label"><i class="fa-solid fa-sitemap"></i>
+								Site </label> <input type="text" class="form-control"
+								style="width: 750px !important;" name="site"
+								placeholder="Digite o site do hotel..." th:value="${h?.site}"
+								required>
+						</div>
+						<div class="mb-3">
+
+							<label class="form-label"><i class="fa-solid fa-image"></i>
+								Foto </label> <input type="file" class="form-control"
+								style="width: 750px !important;" name="fileFotos" multiple
+								accept="image/*" value=""
+								placeholder="Upload de um ou várias fotos">
+						</div>
+
+					</div>
+				</div>
+				<input type="hidden" th:value="${h?.fotos}" name="fotos" />
+				<div th:if="${h?.fotos?.length > 0}">
+					<h3>Fotos Cadastradas</h3>
+					<hr>
+					<div class="big">
+						<div class="m1">
+							<div class="mb-3">
+
+								<div>
+									<ul
+										style="list-style: none; display: flex; padding: 0px; flex-wrap: wrap;">
+										<li th:each="foto, i : ${h?.verFotos()}" style="padding: 10px;"><a
+											target="_blank" th:href="${foto}"><img height="100"
+												width="100" th:src="${foto}"></a>
+												<a th:href="@{/excluirFotos(idHotel=${h?.id},numFoto=${i.index})}"><i class="fa-solid fa-trash-can"></i></a>		
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary">
+					<i class="fa fa-floppy-o" style="font-size: 24px"></i><span
+						style="padding: 5px;"
+						th:text="${h?.id == null ? 'Cadastro' : 'Salvar'}"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+
+</body>
+<script src="https://kit.fontawesome.com/2af22d56bc.js"></script>
+<script src="/js/find_cep.js"></script>
+<script type="text/javascript" src="/js/jquery-126.js"></script>
+<script type="text/javascript" src="/js/jquery-mask.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#cep").mask('99999-999');
+	});
+</script>
+</html>

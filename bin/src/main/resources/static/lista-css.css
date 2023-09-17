@@ -1,0 +1,41 @@
+@charset "ISO-8859-1";
+
+table{
+	width: 70%;
+	margin-top: 3%;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	margin-bottom: 15%;
+}
+
+th, td{
+	padding: 10px;
+	border: solid 1px #c4c4c4;
+}
+
+html {
+    height: 100%;
+    min-height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+footer {
+    margin-top: auto;
+}
+
+.bg-button{
+	margin-left: 275px;
+	margin-top: 30px;
+	width: 70%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.search{
+	display: flex;
+}
